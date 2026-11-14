@@ -10,7 +10,7 @@
 
 *Production-hardened, high-performance developer portfolio built to showcase enterprise architecture, secure API routes, and interactive project sandboxes for Upwork clients and engineering leads.*
 
-[Live Demo](https://localhost:3000) · [Upwork Profile](https://www.upwork.com) · [Report Bug](../../issues)
+[GitHub Repository](https://github.com/FahimInit/my-developer-portfolio) · [Upwork Profile](https://www.upwork.com) · [Issues](https://github.com/FahimInit/my-developer-portfolio/issues)
 
 </div>
 
@@ -146,8 +146,8 @@ Seamless live theme switching without page refreshes or layout shift:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/portfolio.git
-   cd portfolio
+   git clone https://github.com/FahimInit/my-developer-portfolio.git
+   cd my-developer-portfolio
    ```
 
 2. **Install dependencies:**
@@ -156,12 +156,12 @@ Seamless live theme switching without page refreshes or layout shift:
    ```
 
 3. **Configure Environment Variables (Optional):**
-   The application ships with safe defaults in `src/lib/env.ts`. To override them, create a `.env.local` file:
+   The application ships with safe defaults in `src/lib/env.ts`. To customize them, create a `.env.local` file:
    ```env
    NODE_ENV=development
    NEXT_PUBLIC_SITE_URL=http://localhost:3000
    NEXT_PUBLIC_UPWORK_PROFILE_URL=https://www.upwork.com
-   NEXT_PUBLIC_GITHUB_URL=https://github.com/your-username
+   NEXT_PUBLIC_GITHUB_URL=https://github.com/FahimInit/my-developer-portfolio
    NEXT_PUBLIC_AVAILABILITY_STATUS=Available for Upwork Contracts
    RATE_LIMIT_RPM=15
    ```

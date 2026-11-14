@@ -7,7 +7,10 @@ const envSchema = z.object({
     .string()
     .url()
     .default('https://www.upwork.com'),
-  NEXT_PUBLIC_GITHUB_URL: z.string().url().default('https://github.com'),
+  NEXT_PUBLIC_GITHUB_URL: z
+    .string()
+    .url()
+    .default('https://github.com/FahimInit/my-developer-portfolio'),
   NEXT_PUBLIC_AVAILABILITY_STATUS: z
     .string()
     .min(1)
