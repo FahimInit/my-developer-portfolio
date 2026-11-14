@@ -39,11 +39,11 @@ export function Navbar({ availability }: { availability: string }) {
           </span>
           <div className="leading-tight">
             <span className="flex items-center gap-1.5 text-sm font-semibold text-ink-primary">
-              DevArchitect
+              Fahim<span className="text-accent-primary">.dev</span>
               <Code2 className="h-3.5 w-3.5 text-accent-primary" />
             </span>
             <span className="block font-mono text-[11px] text-ink-muted">
-              React · Next.js · Node.js
+              Full-Stack · Next.js &amp; Node.js
             </span>
           </div>
         </a>
