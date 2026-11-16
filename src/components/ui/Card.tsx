@@ -17,9 +17,10 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-2xl border border-line-subtle transition-all duration-200',
+        'rounded-2xl border border-line-subtle transition-all duration-300 ease-out will-change-transform',
         glass ? 'bg-glass backdrop-blur-md' : 'bg-elevated',
-        interactive && 'hover:border-line-hover hover:shadow-glow-sm',
+        interactive &&
+          'hover:-translate-y-1 hover:scale-[1.015] hover:border-line-hover hover:shadow-glow-sm',
         className
       )}
       {...props}

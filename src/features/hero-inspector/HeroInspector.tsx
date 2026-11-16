@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import {
   Activity,
   ArrowRight,
@@ -69,6 +69,33 @@ const SECURITY_GUARDS = [
   },
 ];
 
+type ParticleStyle = CSSProperties & {
+  '--float-duration': string;
+  '--float-delay': string;
+};
+
+const FLOATING_PARTICLES: {
+  id: string;
+  top: string;
+  left: string;
+  size: string;
+  duration: string;
+  delay: string;
+  reverse?: boolean;
+  secondary?: boolean;
+}[] = [
+  { id: 'p1', top: '12%', left: '8%', size: 'h-2 w-2', duration: '9s', delay: '0s' },
+  { id: 'p2', top: '24%', left: '22%', size: 'h-1.5 w-1.5', duration: '12s', delay: '1.2s', reverse: true, secondary: true },
+  { id: 'p3', top: '68%', left: '14%', size: 'h-2.5 w-2.5', duration: '11s', delay: '0.6s', secondary: true },
+  { id: 'p4', top: '18%', left: '46%', size: 'h-1.5 w-1.5', duration: '8s', delay: '2.1s' },
+  { id: 'p5', top: '76%', left: '42%', size: 'h-2 w-2', duration: '13s', delay: '1.8s', reverse: true },
+  { id: 'p6', top: '14%', left: '72%', size: 'h-2 w-2', duration: '10s', delay: '0.4s', secondary: true },
+  { id: 'p7', top: '58%', left: '84%', size: 'h-2.5 w-2.5', duration: '12s', delay: '2.5s', reverse: true },
+  { id: 'p8', top: '82%', left: '91%', size: 'h-1.5 w-1.5', duration: '9s', delay: '1.1s' },
+  { id: 'p9', top: '40%', left: '5%', size: 'h-1.5 w-1.5', duration: '10.5s', delay: '3s', reverse: true },
+  { id: 'p10', top: '34%', left: '92%', size: 'h-2 w-2', duration: '11.5s', delay: '0.9s', secondary: true },
+];
+
 export function HeroInspector({ availability }: HeroInspectorProps) {
   const [activeTab, setActiveTab] = useState<InspectorTab>('architecture');
   const [selectedNodeId, setSelectedNodeId] = useState<string>(
@@ -100,6 +127,36 @@ export function HeroInspector({ availability }: HeroInspectorProps) {
       className="relative overflow-hidden border-b border-line-subtle bg-radial-glow"
     >
       <div className="bg-tech-grid pointer-events-none absolute inset-0 opacity-75" />
+
+      {/* Floating ambient particles (GPU-accelerated, respects prefers-reduced-motion) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        {FLOATING_PARTICLES.map((particle) => {
+          const style: ParticleStyle = {
+            top: particle.top,
+            left: particle.left,
+            '--float-duration': particle.duration,
+            '--float-delay': particle.delay,
+          };
+
+          return (
+            <span
+              key={particle.id}
+              style={style}
+              className={cn(
+                'absolute rounded-full blur-[0.5px]',
+                particle.size,
+                particle.secondary
+                  ? 'bg-accent-secondary shadow-[0_0_12px_var(--accent-secondary)]'
+                  : 'bg-accent-primary shadow-[0_0_12px_var(--accent-primary)]',
+                particle.reverse ? 'particle-float-reverse' : 'particle-float'
+              )}
+            />
+          );
+        })}
+      </div>
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-12 lg:gap-12 lg:px-8">
         {/* Left Column: Value Proposition */}

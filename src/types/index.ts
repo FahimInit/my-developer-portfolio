@@ -18,7 +18,8 @@ export interface ProjectSpec {
   metrics: ProjectMetric[];
   architecture: string;
   githubUrl: string;
-  demoType: DemoType;
+  liveUrl?: string;
+  demoType?: DemoType;
 }
 
 export type TechStackCategory = 'frontend' | 'backend' | 'devops';

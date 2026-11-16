@@ -116,3 +116,42 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--border-hover);
 }
+
+@keyframes floatParticle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(12px, -24px, 0) scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+@keyframes floatParticleReverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(-14px, 20px, 0) scale(0.9);
+    opacity: 0.6;
+  }
+}
+
+.particle-float {
+  animation: floatParticle var(--float-duration, 9s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+.particle-float-reverse {
+  animation: floatParticleReverse var(--float-duration, 11s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle-float,
+  .particle-float-reverse {
+    animation: none;
+  }
+}

@@ -2,6 +2,30 @@ import type { ArchitectureNode, ProjectSpec, TechStackMap } from '@/types';
 
 export const PROJECTS: ProjectSpec[] = [
   {
+    id: 'multi-tenant-saas',
+    title: 'MultiTenantSaaS — Role-Based Team Workspace & Platform',
+    category: 'Full-Stack Next.js',
+    tags: [
+      'Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Multi-Tenant',
+      'RBAC',
+      'Vercel',
+    ],
+    shortDesc:
+      'Production-deployed multi-tenant SaaS application featuring isolated organization workspaces, role-based access control, and streamlined team management workflows.',
+    metrics: [
+      { label: 'Deployment', value: 'Vercel Live' },
+      { label: 'Isolation', value: 'Tenant RBAC' },
+      { label: 'Stack', value: 'Full-Stack' },
+    ],
+    architecture:
+      'Tenant-scoped Next.js App Router architecture enforcing workspace isolation, modular UI primitives, and clean state boundaries across organization contexts.',
+    githubUrl: 'https://github.com/FahimInit/MultiTenantSaaS',
+    liveUrl: 'https://multi-tenant-saa-s-seven.vercel.app/',
+  },
+  {
     id: 'aura-ecommerce',
     title: 'Aura & Artifacts — Headless E-Commerce & Admin',
     category: 'Full-Stack Next.js',

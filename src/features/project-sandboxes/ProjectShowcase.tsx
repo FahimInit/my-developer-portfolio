@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import {
   BarChart3,
+  ExternalLink,
   Eye,
   Github,
   Layers,
@@ -113,7 +114,12 @@ export function ProjectShowcase() {
       </div>
 
       {/* Project Cards Grid */}
-      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div
+        className={cn(
+          'mt-8 grid grid-cols-1 gap-6',
+          filteredProjects.length === 4 ? 'md:grid-cols-2' : 'lg:grid-cols-3'
+        )}
+      >
         {filteredProjects.map((project) => (
           <Card
             key={project.id}
@@ -180,16 +186,29 @@ export function ProjectShowcase() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-2 pt-4 border-t border-line-subtle">
-              <Button
-                variant="primary"
-                size="sm"
-                className="w-full"
-                onClick={() => setModalProject(project)}
-              >
-                <Eye className="h-3.5 w-3.5" />
-                Launch Interactive Sandbox
-              </Button>
+            <div className="mt-6 flex flex-wrap items-center gap-2 pt-4 border-t border-line-subtle">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent-primary px-3 py-1.5 text-xs font-semibold text-[#05080D] shadow-glow-sm transition-all duration-200 hover:brightness-110 hover:shadow-glow"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Live App
+                </a>
+              )}
+              {project.demoType && (
+                <Button
+                  variant={project.liveUrl ? 'secondary' : 'primary'}
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => setModalProject(project)}
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                  Launch Interactive Sandbox
+                </Button>
+              )}
             </div>
           </Card>
         ))}
@@ -258,7 +277,7 @@ export function ProjectShowcase() {
             <p className="text-xs leading-relaxed text-ink-muted">
               {modalProject.architecture}
             </p>
-            {renderSandbox(modalProject.demoType)}
+            {modalProject.demoType && renderSandbox(modalProject.demoType)}
           </div>
         )}
       </Modal>
