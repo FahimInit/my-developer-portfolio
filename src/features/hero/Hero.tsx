@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { ArrowRight, Github } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowRight, FileText, Github } from 'lucide-react';
 import { CodeCard } from '@/features/hero/CodeCard';
 import { ParticleField } from '@/features/hero/ParticleField';
 
@@ -10,8 +10,43 @@ interface HeroProps {
   githubUrl: string;
 }
 
+const TYPED_PHRASES = [
+  'React, Next.js & Node.',
+  'Full-Stack SaaS Apps.',
+  'Fast UI & Solid APIs.',
+  'Clean TypeScript Code.',
+];
+
 export function Hero({ availability, githubUrl }: HeroProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayText, setDisplayText] = useState(TYPED_PHRASES[0] ?? '');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = TYPED_PHRASES[phraseIndex] ?? TYPED_PHRASES[0] ?? '';
+
+    const nextTick = () => {
+      if (!isDeleting) {
+        if (displayText.length < currentPhrase.length) {
+          setDisplayText(currentPhrase.slice(0, displayText.length + 1));
+        } else {
+          setIsDeleting(true);
+        }
+      } else if (displayText.length > 0) {
+        setDisplayText(currentPhrase.slice(0, displayText.length - 1));
+      } else {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % TYPED_PHRASES.length);
+      }
+    };
+
+    const isFullPhrase = !isDeleting && displayText === currentPhrase;
+    const delay = isFullPhrase ? 2200 : isDeleting ? 35 : 65;
+
+    const timer = window.setTimeout(nextTick, delay);
+    return () => window.clearTimeout(timer);
+  }, [displayText, isDeleting, phraseIndex]);
 
   return (
     <section
@@ -43,15 +78,19 @@ export function Hero({ availability, githubUrl }: HeroProps) {
           <h1 className="mt-6 text-4xl font-bold tracking-tight text-ink-primary sm:text-5xl sm:leading-tight">
             Hi, I&apos;m Fahim.
             <br />
-            <span className="text-ink-muted">I build web apps with </span>
-            <span className="bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
-              React, Next.js &amp; Node.
+            <span className="text-ink-muted">I build </span>
+            <span className="inline-block min-h-[1.2em] bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+              {displayText}
+              <span
+                aria-hidden="true"
+                className="ml-1 inline-block h-[0.85em] w-[3px] translate-y-1 animate-pulse bg-accent-primary"
+              />
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-lg text-base text-ink-muted lg:mx-0">
-            I take your designs and turn them into fast frontends, and I build the
-            backends that keep them running.
+            CS senior and full-stack developer. I turn ideas and Figma designs into fast,
+            clean web applications and build the backends behind them.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
@@ -61,6 +100,15 @@ export function Hero({ availability, githubUrl }: HeroProps) {
             >
               See my work
               <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-line-subtle bg-elevated/70 px-5 py-2.5 text-sm font-medium text-ink-primary transition hover:border-line-hover"
+            >
+              <FileText className="h-4 w-4 text-accent-primary" />
+              Resume
             </a>
             <a
               href={githubUrl}

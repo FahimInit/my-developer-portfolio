@@ -2,7 +2,10 @@ export type ThemeId = 'obsidian' | 'linear' | 'emerald';
 
 export type DemoType = 'ecommerce' | 'visualizer' | 'analytics';
 
-export type ProjectCategory = 'Full-Stack Next.js' | 'React UI' | 'Node.js API';
+export type ProjectCategory =
+  | 'Full-Stack Next.js'
+  | 'React UI'
+  | 'Node.js & Python';
 
 export interface ProjectSpec {
   id: string;
@@ -10,6 +13,9 @@ export interface ProjectSpec {
   category: ProjectCategory;
   tags: string[];
   shortDesc: string;
+  problemSolved?: string;
+  architecture?: string;
+  codeSnippet?: string;
   githubUrl?: string;
   liveUrl?: string;
   demoType?: DemoType;
@@ -18,6 +24,12 @@ export interface ProjectSpec {
 export interface SkillGroup {
   label: string;
   items: string[];
+}
+
+export interface EducationItem {
+  degree: string;
+  institution: string;
+  duration: string;
 }
 
 export type PackageId = 'figma-ui' | 'node-api' | 'fullstack-mvp';

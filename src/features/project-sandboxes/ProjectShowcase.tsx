@@ -3,11 +3,14 @@
 import { useState } from 'react';
 import {
   BarChart3,
+  ChevronDown,
+  Coffee,
   ExternalLink,
   Github,
   Play,
   ShoppingBag,
   Sliders,
+  Terminal,
   Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -27,27 +30,26 @@ const DEMO_TABS: { id: DemoType; label: string; icon: typeof ShoppingBag }[] = [
   { id: 'analytics', label: 'PulseMetrics', icon: BarChart3 },
 ];
 
-// Each project gets its own colour so the grid doesn't look like four copies of one card.
 const PREVIEW: Record<string, { gradient: string; icon: typeof Users; iconColor: string }> = {
   'multi-tenant-saas': {
     gradient: 'from-cyan-500/25 via-sky-500/10 to-transparent',
     icon: Users,
     iconColor: 'text-cyan-300',
   },
-  'aura-ecommerce': {
+  'aura-digital': {
     gradient: 'from-amber-500/25 via-orange-500/10 to-transparent',
     icon: ShoppingBag,
     iconColor: 'text-amber-300',
   },
-  'spatial-ai': {
-    gradient: 'from-violet-500/25 via-fuchsia-500/10 to-transparent',
-    icon: Sliders,
-    iconColor: 'text-violet-300',
-  },
-  'pulse-metrics': {
+  'aura-cafe': {
     gradient: 'from-emerald-500/25 via-teal-500/10 to-transparent',
-    icon: BarChart3,
+    icon: Coffee,
     iconColor: 'text-emerald-300',
+  },
+  'yt-playlist-downloader': {
+    gradient: 'from-violet-500/25 via-fuchsia-500/10 to-transparent',
+    icon: Terminal,
+    iconColor: 'text-violet-300',
   },
 };
 
@@ -77,7 +79,6 @@ function ProjectPreview({ project }: { project: ProjectSpec }) {
     >
       <div className="bg-tech-grid absolute inset-0 opacity-50" />
 
-      {/* Mini browser window — slides up a little on hover */}
       <div className="absolute inset-x-8 bottom-0 top-7 rounded-t-xl border border-white/10 bg-canvas/85 shadow-2xl transition-transform duration-500 ease-out group-hover:-translate-y-2">
         <div className="flex items-center gap-1.5 border-b border-white/5 px-3 py-2">
           <span className="h-2 w-2 rounded-full bg-white/15" />
@@ -113,78 +114,126 @@ function ProjectPreview({ project }: { project: ProjectSpec }) {
 export function ProjectShowcase() {
   const [activeDemo, setActiveDemo] = useState<DemoType>('ecommerce');
   const [modalProject, setModalProject] = useState<ProjectSpec | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <section id="work" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="01 — Work"
         title="Selected work"
-        description="A few things I've built. One is live, the others you can try right here on the page."
+        description="Real projects I've shipped and deployed, plus a few interactive demos below."
       />
 
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {PROJECTS.map((project) => (
-          <Card key={project.id} interactive className="group flex flex-col overflow-hidden">
-            <ProjectPreview project={project} />
+        {PROJECTS.map((project) => {
+          const isExpanded = expandedId === project.id;
+          const hasDeepDive = Boolean(
+            project.problemSolved || project.architecture || project.codeSnippet
+          );
 
-            <div className="flex flex-1 flex-col p-6">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs text-ink-muted">{project.category}</p>
-                  <h3 className="mt-1 text-lg font-semibold text-ink-primary">
-                    {project.title}
-                  </h3>
+          return (
+            <Card key={project.id} interactive className="group flex flex-col overflow-hidden">
+              <ProjectPreview project={project} />
+
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs text-ink-muted">{project.category}</p>
+                    <h3 className="mt-1 text-lg font-semibold text-ink-primary">
+                      {project.title}
+                    </h3>
+                  </div>
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${project.title} source on GitHub`}
+                      className="rounded-lg p-1.5 text-ink-muted transition hover:text-accent-primary"
+                    >
+                      <Github className="h-4 w-4" />
+                    </a>
+                  )}
                 </div>
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${project.title} source on GitHub`}
-                    className="rounded-lg p-1.5 text-ink-muted transition hover:text-accent-primary"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                )}
-              </div>
 
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                {project.shortDesc}
-              </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                  {project.shortDesc}
+                </p>
 
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-ink-muted"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-ink-muted"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-              <div className="mt-auto flex gap-2 pt-6">
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent-primary px-3.5 py-1.5 text-xs font-semibold text-[#05080D] transition hover:brightness-110"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    Visit site
-                  </a>
+                {hasDeepDive && isExpanded && (
+                  <div className="mt-4 space-y-3 rounded-xl border border-line-subtle bg-canvas/70 p-3.5 text-xs">
+                    {project.problemSolved && (
+                      <div>
+                        <p className="font-medium text-ink-primary">Problem solved</p>
+                        <p className="mt-0.5 text-ink-muted">{project.problemSolved}</p>
+                      </div>
+                    )}
+                    {project.architecture && (
+                      <div>
+                        <p className="font-medium text-ink-primary">How it&apos;s built</p>
+                        <p className="mt-0.5 text-ink-muted">{project.architecture}</p>
+                      </div>
+                    )}
+                    {project.codeSnippet && (
+                      <pre className="custom-scrollbar overflow-x-auto rounded-lg border border-line-subtle bg-[#05070B] p-2.5 font-mono text-[11px] leading-relaxed text-sky-300">
+                        <code>{project.codeSnippet}</code>
+                      </pre>
+                    )}
+                  </div>
                 )}
-                {project.demoType && (
-                  <Button variant="secondary" size="sm" onClick={() => setModalProject(project)}>
-                    <Play className="h-3.5 w-3.5" />
-                    Try demo
-                  </Button>
-                )}
+
+                <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-6">
+                  <div className="flex flex-wrap gap-2">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-accent-primary px-3.5 py-1.5 text-xs font-semibold text-[#05080D] transition hover:brightness-110"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        Visit site
+                      </a>
+                    )}
+                    {project.demoType && (
+                      <Button variant="secondary" size="sm" onClick={() => setModalProject(project)}>
+                        <Play className="h-3.5 w-3.5" />
+                        Try demo
+                      </Button>
+                    )}
+                  </div>
+
+                  {hasDeepDive && (
+                    <button
+                      type="button"
+                      onClick={() => setExpandedId(isExpanded ? null : project.id)}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-ink-muted transition hover:text-accent-primary"
+                    >
+                      {isExpanded ? 'Hide details' : 'How it works'}
+                      <ChevronDown
+                        className={cn(
+                          'h-3.5 w-3.5 transition-transform',
+                          isExpanded && 'rotate-180'
+                        )}
+                      />
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </div>
 
       <div id="demos" className="mt-24 scroll-mt-24">

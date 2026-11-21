@@ -1,7 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '@/config/projects';
 
-// Tiny hand-rolled "syntax highlighting" — not worth a library for six lines.
 const k = 'text-purple-400';
 const p = 'text-sky-300';
 const s = 'text-emerald-300';
@@ -13,11 +12,21 @@ export function CodeCard() {
   return (
     <div className="relative mx-auto w-full max-w-md animate-float-slow">
       <div className="overflow-hidden rounded-2xl border border-line-glass bg-elevated/90 shadow-2xl shadow-black/50 backdrop-blur-md">
-        <div className="flex items-center gap-2 border-b border-line-subtle px-4 py-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-          <span className="ml-2 font-mono text-xs text-ink-muted">about.ts</span>
+        <div className="flex items-center justify-between border-b border-line-subtle px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+            <span className="ml-2 font-mono text-xs text-ink-muted">about.ts</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img
+              src="/me.jpeg"
+              alt="Md. Fahim Muhtashim"
+              className="h-6 w-6 rounded-full border border-line-hover object-cover"
+            />
+            <span className="font-mono text-[11px] text-ink-muted">AIUB · CSE</span>
+          </div>
         </div>
 
         <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-7">
@@ -28,13 +37,13 @@ export function CodeCard() {
             {'  '}<span className={p}>role</span><span className={m}>:</span>{' '}
             <span className={s}>&apos;Full-stack developer&apos;</span><span className={m}>,</span>
             {'\n'}
+            {'  '}<span className={p}>degree</span><span className={m}>:</span>{' '}
+            <span className={s}>&apos;BSc. in CS &amp; Engineering&apos;</span><span className={m}>,</span>
+            {'\n'}
             {'  '}<span className={p}>stack</span><span className={m}>: [</span>
             <span className={s}>&apos;React&apos;</span><span className={m}>, </span>
             <span className={s}>&apos;Next.js&apos;</span><span className={m}>, </span>
             <span className={s}>&apos;Node&apos;</span><span className={m}>],</span>
-            {'\n'}
-            {'  '}<span className={p}>likes</span><span className={m}>:</span>{' '}
-            <span className={s}>&apos;clean UI, solid APIs&apos;</span><span className={m}>,</span>
             {'\n'}
             {'  '}<span className={p}>available</span><span className={m}>:</span>{' '}
             <span className="text-amber-300">true</span><span className={m}>,</span>
@@ -56,7 +65,7 @@ export function CodeCard() {
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
           </span>
           <span>
-            <span className="block text-[11px] text-ink-muted">Latest project</span>
+            <span className="block text-[11px] text-ink-muted">Latest live app</span>
             <span className="block text-sm font-medium text-ink-primary">{latest.title}</span>
           </span>
           <ArrowUpRight className="h-4 w-4 text-ink-muted" />
