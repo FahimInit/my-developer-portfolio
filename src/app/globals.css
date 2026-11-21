@@ -117,41 +117,32 @@
   background: var(--border-hover);
 }
 
-@keyframes floatParticle {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translate3d(12px, -24px, 0) scale(1.15);
-    opacity: 0.7;
-  }
+/* Infinite tech strip under the hero */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-@keyframes floatParticleReverse {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translate3d(-14px, 20px, 0) scale(0.9);
-    opacity: 0.6;
-  }
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.particle-float {
-  animation: floatParticle var(--float-duration, 9s) ease-in-out var(--float-delay, 0s) infinite;
+.animate-marquee {
+  animation: marquee 35s linear infinite;
 }
 
-.particle-float-reverse {
-  animation: floatParticleReverse var(--float-duration, 11s) ease-in-out var(--float-delay, 0s) infinite;
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .particle-float,
-  .particle-float-reverse {
+  .animate-marquee,
+  .animate-float-slow {
     animation: none;
   }
 }

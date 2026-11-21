@@ -21,21 +21,20 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
-  title: 'Full-Stack Web Developer | React, Next.js & Node.js Specialist',
+  title: 'Fahim | Full-Stack Developer (React, Next.js, Node.js)',
   description:
-    'Enterprise-grade full-stack developer portfolio featuring live interactive React/Next.js sandboxes, strict TypeScript architecture, Zod-validated API routes, and fixed-price Upwork packages.',
+    'I build web apps with React, Next.js and Node.js. See my projects, try a few live demos, or get a quick estimate.',
   openGraph: {
-    title: 'Full-Stack Web Developer | React, Next.js & Node.js Specialist',
+    title: 'Fahim | Full-Stack Developer',
     description:
-      'Explore live interactive Next.js sandboxes, architecture telemetry, and validated Upwork fixed-price scope estimation.',
+      'I build web apps with React, Next.js and Node.js. See my projects and try a few live demos.',
     type: 'website',
     url: env.NEXT_PUBLIC_SITE_URL,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Full-Stack React, Next.js & Node.js Specialist',
-    description:
-      'Production-hardened web apps built with Next.js 15, TypeScript, Tailwind CSS, and Node.js.',
+    title: 'Fahim | Full-Stack Developer',
+    description: 'I build web apps with React, Next.js and Node.js.',
   },
 };
 
@@ -45,7 +44,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen bg-canvas font-sans text-ink-primary antialiased">
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            <Navbar availability={env.NEXT_PUBLIC_AVAILABILITY_STATUS} />
+            <Navbar />
             <main className="flex-1">{children}</main>
             <Footer
               upworkUrl={env.NEXT_PUBLIC_UPWORK_PROFILE_URL}

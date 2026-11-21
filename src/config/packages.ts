@@ -13,73 +13,64 @@ export const estimateRequestSchema = z.object({
   clientNotes: z
     .string()
     .trim()
-    .min(10, 'Please include at least 10 characters describing your goal or scope.')
-    .max(600, 'Project brief must be 600 characters or fewer.'),
+    .min(10, 'Tell me a bit more about the project (at least 10 characters).')
+    .max(600, 'Please keep it under 600 characters.'),
   targetStack: z
     .string()
     .trim()
-    .max(80, 'Target stack note must be 80 characters or fewer.')
+    .max(80, 'Keep the stack note under 80 characters.')
     .optional(),
 });
 
 export const UPWORK_PACKAGES: UpworkPackage[] = [
   {
     id: 'figma-ui',
-    title: 'Figma to Pixel-Perfect React / Next.js UI',
-    badge: 'Fastest Turnaround',
-    priceRange: '$60 – $150 Fixed',
+    title: 'Figma to React',
+    priceRange: '$60 – $150',
     minUsd: 60,
     maxUsd: 150,
-    turnaround: '2 – 4 Days',
+    turnaround: '2–4 days',
     minDays: 2,
     maxDays: 4,
-    description:
-      'Have a Figma design or rough wireframe? I convert it into clean, responsive, modular React/Next.js components styled with Tailwind CSS.',
+    description: 'Your design, built as a clean, responsive React or Next.js site.',
     deliverables: [
-      '100% responsive across Mobile, Tablet & Desktop',
-      'Clean, reusable TypeScript/React component architecture',
-      '95+ Google Lighthouse Performance & Accessibility score',
-      'Deployed live preview link on Vercel for instant review',
+      'Looks right on mobile, tablet and desktop',
+      'Reusable components',
+      'Live preview link to review',
     ],
     iconName: 'laptop',
   },
   {
     id: 'node-api',
-    title: 'Custom Node.js REST API & Integration',
-    badge: 'Backend & Data',
-    priceRange: '$80 – $200 Fixed',
+    title: 'Node.js API',
+    priceRange: '$80 – $200',
     minUsd: 80,
     maxUsd: 200,
-    turnaround: '3 – 5 Days',
+    turnaround: '3–5 days',
     minDays: 3,
     maxDays: 5,
-    description:
-      'Need secure endpoints, database modeling, or third-party webhook integrations? I build reliable, documented Node.js backends.',
+    description: 'A backend for your app: endpoints, database, auth and integrations.',
     deliverables: [
-      'Secure JWT Authentication & role-based access control',
-      'PostgreSQL or MongoDB schema with fast indexed queries',
-      'Payment, Courier, or AI API integration with error retries',
-      'Postman / OpenAPI collection & clear setup documentation',
+      'Login and user roles',
+      'PostgreSQL or MongoDB setup',
+      'Docs and a Postman collection',
     ],
     iconName: 'server',
   },
   {
     id: 'fullstack-mvp',
-    title: 'Full-Stack Next.js MVP Build',
-    badge: 'End-to-End Solution',
-    priceRange: '$250 – $600+ Fixed / $15/hr',
+    title: 'Full-stack MVP',
+    priceRange: '$250 – $600+',
     minUsd: 250,
     maxUsd: 600,
-    turnaround: '1 – 3 Weeks',
+    turnaround: '1–3 weeks',
     minDays: 7,
     maxDays: 21,
-    description:
-      'Launch your SaaS, internal tool, or custom e-commerce platform from scratch with a modern, scalable React + Node.js stack.',
+    description: 'Your idea taken from zero to a working, deployed product.',
     deliverables: [
-      'Complete Frontend UI + Backend API + Database architecture',
-      'Admin dashboard, user authentication & CRUD workflows',
-      'Production deployment with custom domain & SSL setup',
-      'Daily async updates & clean Git repository handover',
+      'Frontend, backend and database',
+      'Admin dashboard and auth',
+      'Deployed on your domain',
     ],
     iconName: 'cpu',
   },
@@ -88,32 +79,28 @@ export const UPWORK_PACKAGES: UpworkPackage[] = [
 export const SCOPE_ADDONS: ScopeAddon[] = [
   {
     id: 'stripe-webhooks',
-    label: 'Stripe / Courier Webhook Pipeline',
-    description: 'Signature verification, idempotent retries & live status sync',
+    label: 'Payments (Stripe)',
     addedMinUsd: 55,
     addedMaxUsd: 110,
     addedDays: 2,
   },
   {
     id: 'auth-rbac',
-    label: 'JWT / OAuth2 + Role-Based Access',
-    description: 'Protected routes, session rotation & Admin/Client roles',
+    label: 'Login & user roles',
     addedMinUsd: 45,
     addedMaxUsd: 90,
     addedDays: 1,
   },
   {
     id: 'postgres-prisma',
-    label: 'PostgreSQL Schema & Prisma ORM',
-    description: 'Indexed relational tables, seed scripts & migrations',
+    label: 'Database setup',
     addedMinUsd: 50,
     addedMaxUsd: 100,
     addedDays: 2,
   },
   {
     id: 'docker-cicd',
-    label: 'Docker + GitHub Actions CI/CD',
-    description: 'Automated typecheck, build verification & zero-downtime deploy',
+    label: 'Docker & auto-deploy',
     addedMinUsd: 40,
     addedMaxUsd: 75,
     addedDays: 1,

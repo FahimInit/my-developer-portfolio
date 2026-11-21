@@ -4,57 +4,56 @@ import { useState } from 'react';
 import {
   BarChart3,
   ExternalLink,
-  Eye,
   Github,
-  Layers,
+  Play,
   ShoppingBag,
   Sliders,
+  Users,
 } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
+import { SectionHeading } from '@/components/ui/SectionHeading';
 import { PROJECTS } from '@/config/projects';
 import { AnalyticsSandbox } from '@/features/project-sandboxes/AnalyticsSandbox';
 import { EcommerceSandbox } from '@/features/project-sandboxes/EcommerceSandbox';
 import { VisualizerSandbox } from '@/features/project-sandboxes/VisualizerSandbox';
 import { cn } from '@/lib/utils';
-import type { DemoType, ProjectCategory, ProjectSpec } from '@/types';
+import type { DemoType, ProjectSpec } from '@/types';
 
-const FILTER_CATEGORIES: ProjectCategory[] = [
-  'All',
-  'Full-Stack Next.js',
-  'React UI',
-  'Node.js API',
+const DEMO_TABS: { id: DemoType; label: string; icon: typeof ShoppingBag }[] = [
+  { id: 'ecommerce', label: 'Aura store', icon: ShoppingBag },
+  { id: 'visualizer', label: 'SpatialAI', icon: Sliders },
+  { id: 'analytics', label: 'PulseMetrics', icon: BarChart3 },
 ];
 
-const SANDBOX_TABS: {
-  id: DemoType;
-  label: string;
-  subtitle: string;
-  icon: typeof ShoppingBag;
-}[] = [
-  {
-    id: 'ecommerce',
-    label: 'Aura E-Commerce',
-    subtitle: 'Cart & Courier Webhook Demo',
+// Each project gets its own colour so the grid doesn't look like four copies of one card.
+const PREVIEW: Record<string, { gradient: string; icon: typeof Users; iconColor: string }> = {
+  'multi-tenant-saas': {
+    gradient: 'from-cyan-500/25 via-sky-500/10 to-transparent',
+    icon: Users,
+    iconColor: 'text-cyan-300',
+  },
+  'aura-ecommerce': {
+    gradient: 'from-amber-500/25 via-orange-500/10 to-transparent',
     icon: ShoppingBag,
+    iconColor: 'text-amber-300',
   },
-  {
-    id: 'visualizer',
-    label: 'SpatialAI CAD',
-    subtitle: 'Split-View Canvas & BullMQ',
+  'spatial-ai': {
+    gradient: 'from-violet-500/25 via-fuchsia-500/10 to-transparent',
     icon: Sliders,
+    iconColor: 'text-violet-300',
   },
-  {
-    id: 'analytics',
-    label: 'PulseMetrics API',
-    subtitle: 'Redis Cache & Stream Telemetry',
+  'pulse-metrics': {
+    gradient: 'from-emerald-500/25 via-teal-500/10 to-transparent',
     icon: BarChart3,
+    iconColor: 'text-emerald-300',
   },
-];
+};
 
-function renderSandbox(type: DemoType) {
+const FALLBACK_PREVIEW = PREVIEW['multi-tenant-saas']!;
+
+function renderDemo(type: DemoType) {
   switch (type) {
     case 'ecommerce':
       return <EcommerceSandbox />;
@@ -65,221 +64,171 @@ function renderSandbox(type: DemoType) {
   }
 }
 
-export function ProjectShowcase() {
-  const [categoryFilter, setCategoryFilter] = useState<ProjectCategory>('All');
-  const [inlineSandbox, setInlineSandbox] = useState<DemoType>('ecommerce');
-  const [modalProject, setModalProject] = useState<ProjectSpec | null>(null);
-
-  const filteredProjects =
-    categoryFilter === 'All'
-      ? PROJECTS
-      : PROJECTS.filter((project) => project.category === categoryFilter);
+function ProjectPreview({ project }: { project: ProjectSpec }) {
+  const style = PREVIEW[project.id] ?? FALLBACK_PREVIEW;
+  const Icon = style.icon;
 
   return (
-    <section id="projects" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      {/* Section Header + Category Filters */}
-      <div className="flex flex-col justify-between gap-6 border-b border-line-subtle pb-8 md:flex-row md:items-end">
-        <div className="space-y-2">
-          <Badge variant="accent">Production Case Studies</Badge>
-          <h2 className="text-2xl font-bold tracking-tight text-ink-primary sm:text-3xl">
-            Featured Spec Systems &amp; Architecture
-          </h2>
-          <p className="max-w-2xl text-sm text-ink-muted">
-            Every project below showcases a distinct engineering domain — full-stack headless
-            commerce, interactive React canvas UI, and high-throughput Node.js telemetry.
-          </p>
-        </div>
+    <div
+      className={cn(
+        'relative h-44 overflow-hidden border-b border-line-subtle bg-gradient-to-br',
+        style.gradient
+      )}
+    >
+      <div className="bg-tech-grid absolute inset-0 opacity-50" />
 
-        <div
-          role="group"
-          aria-label="Filter projects by category"
-          className="flex flex-wrap gap-1.5"
-        >
-          {FILTER_CATEGORIES.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setCategoryFilter(category)}
-              className={cn(
-                'rounded-lg border px-3 py-1.5 text-xs font-medium transition',
-                categoryFilter === category
-                  ? 'border-accent-primary/60 bg-accent-glow text-accent-primary'
-                  : 'border-line-subtle bg-elevated text-ink-muted hover:text-ink-primary'
-              )}
-            >
-              {category}
-            </button>
-          ))}
+      {/* Mini browser window — slides up a little on hover */}
+      <div className="absolute inset-x-8 bottom-0 top-7 rounded-t-xl border border-white/10 bg-canvas/85 shadow-2xl transition-transform duration-500 ease-out group-hover:-translate-y-2">
+        <div className="flex items-center gap-1.5 border-b border-white/5 px-3 py-2">
+          <span className="h-2 w-2 rounded-full bg-white/15" />
+          <span className="h-2 w-2 rounded-full bg-white/15" />
+          <span className="h-2 w-2 rounded-full bg-white/15" />
+        </div>
+        <div className="flex items-center gap-3 p-4">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
+            <Icon className={cn('h-5 w-5', style.iconColor)} />
+          </span>
+          <div className="flex-1 space-y-2">
+            <div className="h-2 w-2/3 rounded bg-white/15" />
+            <div className="h-2 w-1/2 rounded bg-white/5" />
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-2 px-4">
+          <div className="h-10 rounded-md bg-white/5" />
+          <div className="h-10 rounded-md bg-white/5" />
+          <div className="h-10 rounded-md bg-white/5" />
         </div>
       </div>
 
-      {/* Project Cards Grid */}
-      <div
-        className={cn(
-          'mt-8 grid grid-cols-1 gap-6',
-          filteredProjects.length === 4 ? 'md:grid-cols-2' : 'lg:grid-cols-3'
-        )}
-      >
-        {filteredProjects.map((project) => (
-          <Card
-            key={project.id}
-            interactive
-            className="flex flex-col justify-between p-6"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <Badge variant="outline">{project.category}</Badge>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Inspect ${project.title} on GitHub`}
-                  className="inline-flex items-center gap-1 font-mono text-xs text-ink-muted transition hover:text-accent-primary"
-                >
-                  <Github className="h-3.5 w-3.5" />
-                  Code
-                </a>
+      {project.liveUrl && (
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-canvas/80 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+          Live
+        </span>
+      )}
+    </div>
+  );
+}
+
+export function ProjectShowcase() {
+  const [activeDemo, setActiveDemo] = useState<DemoType>('ecommerce');
+  const [modalProject, setModalProject] = useState<ProjectSpec | null>(null);
+
+  return (
+    <section id="work" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="01 — Work"
+        title="Selected work"
+        description="A few things I've built. One is live, the others you can try right here on the page."
+      />
+
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {PROJECTS.map((project) => (
+          <Card key={project.id} interactive className="group flex flex-col overflow-hidden">
+            <ProjectPreview project={project} />
+
+            <div className="flex flex-1 flex-col p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs text-ink-muted">{project.category}</p>
+                  <h3 className="mt-1 text-lg font-semibold text-ink-primary">
+                    {project.title}
+                  </h3>
+                </div>
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} source on GitHub`}
+                    className="rounded-lg p-1.5 text-ink-muted transition hover:text-accent-primary"
+                  >
+                    <Github className="h-4 w-4" />
+                  </a>
+                )}
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold leading-snug text-ink-primary">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-                  {project.shortDesc}
-                </p>
-              </div>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                {project.shortDesc}
+              </p>
 
-              {/* Metrics Strip */}
-              <div className="grid grid-cols-3 gap-2 rounded-xl border border-line-subtle bg-canvas/80 p-3">
-                {project.metrics.map((metric) => (
-                  <div key={metric.label}>
-                    <p className="font-mono text-xs font-bold text-accent-primary">
-                      {metric.value}
-                    </p>
-                    <p className="mt-0.5 text-[10px] text-ink-muted">{metric.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Architecture Note */}
-              <div className="rounded-xl border border-line-subtle bg-elevated/70 p-3">
-                <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-ink-muted">
-                  <Layers className="h-3 w-3 text-accent-primary" />
-                  Architecture Summary
-                </p>
-                <p className="mt-1 text-[11px] leading-relaxed text-ink-muted">
-                  {project.architecture}
-                </p>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5">
+              <div className="mt-4 flex flex-wrap gap-1.5">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-md border border-line-subtle bg-canvas/70 px-2 py-0.5 font-mono text-[10px] text-ink-muted"
+                    className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-ink-muted"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-            </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-2 pt-4 border-t border-line-subtle">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent-primary px-3 py-1.5 text-xs font-semibold text-[#05080D] shadow-glow-sm transition-all duration-200 hover:brightness-110 hover:shadow-glow"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Live App
-                </a>
-              )}
-              {project.demoType && (
-                <Button
-                  variant={project.liveUrl ? 'secondary' : 'primary'}
-                  size="sm"
-                  className="flex-1"
-                  onClick={() => setModalProject(project)}
-                >
-                  <Eye className="h-3.5 w-3.5" />
-                  Launch Interactive Sandbox
-                </Button>
-              )}
+              <div className="mt-auto flex gap-2 pt-6">
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent-primary px-3.5 py-1.5 text-xs font-semibold text-[#05080D] transition hover:brightness-110"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    Visit site
+                  </a>
+                )}
+                {project.demoType && (
+                  <Button variant="secondary" size="sm" onClick={() => setModalProject(project)}>
+                    <Play className="h-3.5 w-3.5" />
+                    Try demo
+                  </Button>
+                )}
+              </div>
             </div>
           </Card>
         ))}
       </div>
 
-      {/* Inline Interactive Sandbox Switcher */}
-      <div id="sandboxes" className="mt-14 space-y-5 scroll-mt-24">
+      <div id="demos" className="mt-24 scroll-mt-24">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <Badge variant="emerald">Zero-Mockup Testing</Badge>
-            <h3 className="mt-2 text-xl font-bold text-ink-primary sm:text-2xl">
-              Try Live Component Sandboxes Inline
-            </h3>
-            <p className="mt-1 text-xs text-ink-muted">
-              Switch between all three interactive modules below — test state calculations,
-              drag the CAD comparison viewport, or trigger simulated webhook bursts.
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="Playground"
+            title="Try the demos"
+            description="These run in your browser, so go ahead and click around."
+          />
 
           <div className="flex flex-wrap gap-2">
-            {SANDBOX_TABS.map((tab) => {
+            {DEMO_TABS.map((tab) => {
               const Icon = tab.icon;
-              const active = inlineSandbox === tab.id;
+              const active = activeDemo === tab.id;
               return (
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setInlineSandbox(tab.id)}
+                  onClick={() => setActiveDemo(tab.id)}
                   className={cn(
-                    'flex items-center gap-2 rounded-xl border px-3.5 py-2 text-left transition',
+                    'inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition',
                     active
-                      ? 'border-accent-primary/60 bg-accent-glow text-ink-primary shadow-glow-sm'
-                      : 'border-line-subtle bg-elevated text-ink-muted hover:text-ink-primary'
+                      ? 'border-line-hover bg-accent-glow text-ink-primary'
+                      : 'border-line-subtle text-ink-muted hover:text-ink-primary'
                   )}
                 >
-                  <Icon
-                    className={cn(
-                      'h-4 w-4',
-                      active ? 'text-accent-primary' : 'text-ink-muted'
-                    )}
-                  />
-                  <div>
-                    <p className="text-xs font-semibold leading-none">{tab.label}</p>
-                    <p className="mt-0.5 font-mono text-[10px] opacity-75">
-                      {tab.subtitle}
-                    </p>
-                  </div>
+                  <Icon className={cn('h-4 w-4', active && 'text-accent-primary')} />
+                  {tab.label}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {renderSandbox(inlineSandbox)}
+        <div className="mt-6">{renderDemo(activeDemo)}</div>
       </div>
 
-      {/* Fullscreen Sandbox Modal */}
       <Modal
         open={modalProject !== null}
         onClose={() => setModalProject(null)}
-        title={modalProject?.title ?? 'Interactive Sandbox'}
+        title={modalProject?.title ?? 'Demo'}
         subtitle={modalProject?.category}
       >
-        {modalProject && (
-          <div className="space-y-4">
-            <p className="text-xs leading-relaxed text-ink-muted">
-              {modalProject.architecture}
-            </p>
-            {modalProject.demoType && renderSandbox(modalProject.demoType)}
-          </div>
-        )}
+        {modalProject?.demoType && renderDemo(modalProject.demoType)}
       </Modal>
     </section>
   );

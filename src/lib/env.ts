@@ -10,11 +10,11 @@ const envSchema = z.object({
   NEXT_PUBLIC_GITHUB_URL: z
     .string()
     .url()
-    .default('https://github.com/FahimInit/my-developer-portfolio'),
+    .default('https://github.com/FahimInit'),
   NEXT_PUBLIC_AVAILABILITY_STATUS: z
     .string()
     .min(1)
-    .default('Available for Upwork Contracts'),
+    .default('Available for new projects'),
   RATE_LIMIT_RPM: z.coerce.number().int().min(5).max(120).default(15),
 });
 

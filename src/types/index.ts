@@ -2,44 +2,22 @@ export type ThemeId = 'obsidian' | 'linear' | 'emerald';
 
 export type DemoType = 'ecommerce' | 'visualizer' | 'analytics';
 
-export type ProjectCategory = 'All' | 'Full-Stack Next.js' | 'React UI' | 'Node.js API';
-
-export interface ProjectMetric {
-  label: string;
-  value: string;
-}
+export type ProjectCategory = 'Full-Stack Next.js' | 'React UI' | 'Node.js API';
 
 export interface ProjectSpec {
   id: string;
   title: string;
-  category: Exclude<ProjectCategory, 'All'>;
+  category: ProjectCategory;
   tags: string[];
   shortDesc: string;
-  metrics: ProjectMetric[];
-  architecture: string;
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
   demoType?: DemoType;
 }
 
-export type TechStackCategory = 'frontend' | 'backend' | 'devops';
-
-export interface TechStackItem {
-  name: string;
-  level: 'Specialist' | 'Advanced';
-  desc: string;
-}
-
-export type TechStackMap = Record<TechStackCategory, TechStackItem[]>;
-
-export interface ArchitectureNode {
-  id: string;
-  title: string;
-  layer: string;
-  latency: string;
-  summary: string;
-  controls: string[];
-  snippet: string;
+export interface SkillGroup {
+  label: string;
+  items: string[];
 }
 
 export type PackageId = 'figma-ui' | 'node-api' | 'fullstack-mvp';
@@ -55,7 +33,6 @@ export type UrgencyLevel = 'standard' | 'priority';
 export interface UpworkPackage {
   id: PackageId;
   title: string;
-  badge: string;
   priceRange: string;
   minUsd: number;
   maxUsd: number;
@@ -70,7 +47,6 @@ export interface UpworkPackage {
 export interface ScopeAddon {
   id: AddonId;
   label: string;
-  description: string;
   addedMinUsd: number;
   addedMaxUsd: number;
   addedDays: number;

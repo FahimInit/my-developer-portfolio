@@ -10,7 +10,6 @@ import {
   Trash2,
   Zap,
 } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
 import { cn, formatCurrency } from '@/lib/utils';
 
 interface CatalogItem {
@@ -106,22 +105,12 @@ export function EcommerceSandbox() {
     <div className="grid grid-cols-1 gap-6 rounded-xl border border-line-subtle bg-canvas/90 p-4 sm:p-6 lg:grid-cols-12">
       {/* Left: Catalog & Courier Rate Selector */}
       <div className="space-y-4 lg:col-span-7">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line-subtle pb-3">
-          <div>
-            <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400">
-              Live Component Demo
-            </span>
-            <h4 className="text-base font-semibold text-ink-primary sm:text-lg">
-              Aura Storefront &amp; Courier Calculator
-            </h4>
-          </div>
-          <Badge variant="emerald">Optimistic UI State</Badge>
+        <div className="border-b border-line-subtle pb-3">
+          <h4 className="text-base font-semibold text-ink-primary">Aura store</h4>
+          <p className="mt-0.5 text-sm text-ink-muted">
+            Add items and switch shipping zones. The total and order payload update as you go.
+          </p>
         </div>
-
-        <p className="text-xs text-ink-muted">
-          Add catalog items or switch courier zones to inspect instant React state updates
-          and the serialized Node.js order webhook payload:
-        </p>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {CATALOG.map((item) => (
@@ -154,7 +143,7 @@ export function EcommerceSandbox() {
         <div className="space-y-2 rounded-xl border border-line-subtle bg-elevated/60 p-3.5">
           <label className="flex items-center gap-1.5 text-xs font-medium text-ink-primary">
             <Globe className="h-3.5 w-3.5 text-accent-primary" />
-            Select Courier Dispatch Zone (Dynamic API Rate):
+            Shipping zone
           </label>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {COURIER_ZONES.map((z) => (
@@ -293,7 +282,7 @@ export function EcommerceSandbox() {
             onClick={() => setOrderPlaced(true)}
             className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-2.5 text-xs font-semibold text-[#05080D] transition hover:bg-emerald-400 disabled:pointer-events-none disabled:opacity-40"
           >
-            <Zap className="h-3.5 w-3.5" /> Simulate Stripe &amp; Courier Webhook
+            <Zap className="h-3.5 w-3.5" /> Place test order
           </button>
 
           {orderPlaced && (

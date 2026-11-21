@@ -92,12 +92,10 @@ export function AnalyticsSandbox() {
     <div className="space-y-5 rounded-xl border border-line-subtle bg-canvas/90 p-4 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-subtle pb-3">
         <div>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-accent-primary">
-            High-Throughput Ingestion Pipeline
-          </span>
-          <h4 className="text-base font-semibold text-ink-primary sm:text-lg">
-            PulseMetrics — Redis Cache &amp; Webhook Telemetry Simulator
-          </h4>
+          <h4 className="text-base font-semibold text-ink-primary">PulseMetrics</h4>
+          <p className="mt-0.5 text-sm text-ink-muted">
+            Send some traffic and toggle the cache to see what changes.
+          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">

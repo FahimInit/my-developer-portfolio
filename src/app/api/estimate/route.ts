@@ -95,25 +95,25 @@ export async function POST(request: Request) {
 
   const milestones: EstimateMilestone[] = [
     {
-      phase: 'Milestone 1: Architecture & Core UI/API',
+      phase: 'Setup & core build',
       percentage: 40,
       amountMin: Math.round(estimatedMinUsd * 0.4),
       amountMax: Math.round(estimatedMaxUsd * 0.4),
-      deliverable: 'Repo setup, strict TypeScript schema contracts & live Vercel preview',
+      deliverable: 'Project setup, main screens or endpoints, and a live preview link',
     },
     {
-      phase: 'Milestone 2: Integrations & Validation',
+      phase: 'Features & integrations',
       percentage: 40,
       amountMin: Math.round(estimatedMinUsd * 0.4),
       amountMax: Math.round(estimatedMaxUsd * 0.4),
-      deliverable: 'Full feature workflows, Zod boundary checks & database/API wiring',
+      deliverable: 'The rest of the features, wired up to the database and APIs',
     },
     {
-      phase: 'Milestone 3: QA, Lighthouse & Handover',
+      phase: 'Testing & handover',
       percentage: 20,
       amountMin: Math.round(estimatedMinUsd * 0.2),
       amountMax: Math.round(estimatedMaxUsd * 0.2),
-      deliverable: 'Production build audit, security headers verification & clean docs',
+      deliverable: 'Bug fixes, final deploy, and a short walkthrough of the code',
     },
   ];
 
