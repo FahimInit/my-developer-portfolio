@@ -7,6 +7,7 @@ import {
   Coffee,
   ExternalLink,
   Github,
+  Package,
   Play,
   ShoppingBag,
   Sliders,
@@ -35,6 +36,11 @@ const PREVIEW: Record<string, { gradient: string; icon: typeof Users; iconColor:
     gradient: 'from-cyan-500/25 via-sky-500/10 to-transparent',
     icon: Users,
     iconColor: 'text-cyan-300',
+  },
+  'inventory-order-manager': {
+    gradient: 'from-indigo-500/25 via-blue-500/10 to-transparent',
+    icon: Package,
+    iconColor: 'text-indigo-300',
   },
   'aura-digital': {
     gradient: 'from-amber-500/25 via-orange-500/10 to-transparent',

@@ -16,6 +16,19 @@ export const PROJECTS: ProjectSpec[] = [
     liveUrl: 'https://multi-tenant-saa-s-seven.vercel.app/',
   },
   {
+    id: 'inventory-order-manager',
+    title: 'Inventory & Order Management',
+    category: 'Full-Stack Next.js',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    shortDesc:
+      'Web app for tracking product stock, managing incoming orders, and monitoring fulfillment status from one dashboard.',
+    problemSolved:
+      'Replaced scattered spreadsheets with a centralized order and inventory tracker so stock levels stay accurate as orders move through.',
+    architecture:
+      'Next.js App Router with responsive data tables, real-time stock status indicators, and clean state updates.',
+    liveUrl: 'https://enterprise-inventory-and-order-mana.vercel.app/',
+  },
+  {
     id: 'aura-digital',
     title: 'Aura Digital Solutions',
     category: 'Full-Stack Next.js',
