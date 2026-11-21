@@ -7,7 +7,9 @@ const s = 'text-emerald-300';
 const m = 'text-ink-muted';
 
 export function CodeCard() {
-  const latest = PROJECTS.find((proj) => proj.liveUrl);
+  // PROJECTS is ordered newest-first, so index 0 (or first live app) is always the latest.
+  const latest = PROJECTS.find((proj) => Boolean(proj.liveUrl)) ?? PROJECTS[0];
+  const latestHref = latest?.liveUrl ?? latest?.githubUrl;
 
   return (
     <div className="relative mx-auto w-full max-w-md animate-float-slow">
@@ -53,9 +55,9 @@ export function CodeCard() {
         </pre>
       </div>
 
-      {latest?.liveUrl && (
+      {latest && latestHref && (
         <a
-          href={latest.liveUrl}
+          href={latestHref}
           target="_blank"
           rel="noopener noreferrer"
           className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-xl border border-line-glass bg-elevated px-4 py-3 shadow-xl shadow-black/40 transition hover:border-line-hover sm:-left-8"

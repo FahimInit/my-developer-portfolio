@@ -1,6 +1,21 @@
 import type { EducationItem, ProjectSpec, SkillGroup } from '@/types';
 
+// Ordered newest-first: always prepend new projects at index 0.
+// Both ProjectShowcase and Hero CodeCard ("Latest live app") read from this order automatically.
 export const PROJECTS: ProjectSpec[] = [
+  {
+    id: 'inventory-order-manager',
+    title: 'Inventory & Order Management',
+    category: 'Full-Stack Next.js',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    shortDesc:
+      'Web app for tracking product stock, managing incoming orders, and monitoring fulfillment status from one dashboard.',
+    problemSolved:
+      'Replaced scattered spreadsheets with a centralized order and inventory tracker so stock levels stay accurate as orders move through.',
+    architecture:
+      'Next.js App Router with responsive data tables, real-time stock status indicators, and clean state updates.',
+    liveUrl: 'https://enterprise-inventory-and-order-mana.vercel.app/',
+  },
   {
     id: 'multi-tenant-saas',
     title: 'MultiTenantSaaS',
@@ -14,19 +29,6 @@ export const PROJECTS: ProjectSpec[] = [
       'Next.js App Router with tenant-scoped routes, role-based access checks, and modular dashboard components.',
     githubUrl: 'https://github.com/FahimInit/MultiTenantSaaS',
     liveUrl: 'https://multi-tenant-saa-s-seven.vercel.app/',
-  },
-  {
-    id: 'inventory-order-manager',
-    title: 'Inventory & Order Management',
-    category: 'Full-Stack Next.js',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
-    shortDesc:
-      'Web app for tracking product stock, managing incoming orders, and monitoring fulfillment status from one dashboard.',
-    problemSolved:
-      'Replaced scattered spreadsheets with a centralized order and inventory tracker so stock levels stay accurate as orders move through.',
-    architecture:
-      'Next.js App Router with responsive data tables, real-time stock status indicators, and clean state updates.',
-    liveUrl: 'https://enterprise-inventory-and-order-mana.vercel.app/',
   },
   {
     id: 'aura-digital',
