@@ -3,15 +3,14 @@
 import { useState } from 'react';
 import {
   BarChart3,
+  BookOpen,
   ChevronDown,
-  Coffee,
   ExternalLink,
   Github,
   Package,
   Play,
   ShoppingBag,
   Sliders,
-  Terminal,
   Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -32,34 +31,24 @@ const DEMO_TABS: { id: DemoType; label: string; icon: typeof ShoppingBag }[] = [
 ];
 
 const PREVIEW: Record<string, { gradient: string; icon: typeof Users; iconColor: string }> = {
-  'multi-tenant-saas': {
-    gradient: 'from-cyan-500/25 via-sky-500/10 to-transparent',
-    icon: Users,
-    iconColor: 'text-cyan-300',
+  'learnsphere-lms': {
+    gradient: 'from-emerald-500/25 via-teal-500/10 to-transparent',
+    icon: BookOpen,
+    iconColor: 'text-emerald-300',
   },
   'inventory-order-manager': {
     gradient: 'from-indigo-500/25 via-blue-500/10 to-transparent',
     icon: Package,
     iconColor: 'text-indigo-300',
   },
-  'aura-digital': {
-    gradient: 'from-amber-500/25 via-orange-500/10 to-transparent',
-    icon: ShoppingBag,
-    iconColor: 'text-amber-300',
-  },
-  'aura-cafe': {
-    gradient: 'from-emerald-500/25 via-teal-500/10 to-transparent',
-    icon: Coffee,
-    iconColor: 'text-emerald-300',
-  },
-  'yt-playlist-downloader': {
-    gradient: 'from-violet-500/25 via-fuchsia-500/10 to-transparent',
-    icon: Terminal,
-    iconColor: 'text-violet-300',
+  'multi-tenant-saas': {
+    gradient: 'from-cyan-500/25 via-sky-500/10 to-transparent',
+    icon: Users,
+    iconColor: 'text-cyan-300',
   },
 };
 
-const FALLBACK_PREVIEW = PREVIEW['multi-tenant-saas']!;
+const FALLBACK_PREVIEW = PREVIEW['learnsphere-lms']!;
 
 function renderDemo(type: DemoType) {
   switch (type) {

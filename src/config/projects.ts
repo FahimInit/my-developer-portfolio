@@ -4,77 +4,46 @@ import type { EducationItem, ProjectSpec, SkillGroup } from '@/types';
 // Both ProjectShowcase and Hero CodeCard ("Latest live app") read from this order automatically.
 export const PROJECTS: ProjectSpec[] = [
   {
+    id: 'learnsphere-lms',
+    title: 'LearnSphere LMS',
+    category: 'Full-Stack Next.js',
+    tags: ['React', 'TypeScript', 'Express', 'MongoDB', 'Docker'],
+    shortDesc:
+      'Learning management platform for creating courses, managing student enrollments, and tracking lessons in one place.',
+    problemSolved:
+      'Gave instructors and learners a clean, self-hosted course platform with role-based dashboards and containerized deployment.',
+    architecture:
+      'TypeScript React frontend backed by an Express & MongoDB REST API, packaged with Docker and automated CI checks.',
+    githubUrl: 'https://github.com/FahimInit/learnsphere-lms',
+    liveUrl: 'https://learnsphere-lms-three.vercel.app',
+  },
+  {
     id: 'inventory-order-manager',
     title: 'Inventory & Order Management',
     category: 'Full-Stack Next.js',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    tags: ['Next.js 15', 'TypeScript', 'ASP.NET Core', 'PostgreSQL', 'Tailwind CSS'],
     shortDesc:
-      'Web app for tracking product stock, managing incoming orders, and monitoring fulfillment status from one dashboard.',
+      'Multi-tenant SaaS app for tracking product stock, managing incoming orders, and monitoring fulfillment status from one dashboard.',
     problemSolved:
       'Replaced scattered spreadsheets with a centralized order and inventory tracker so stock levels stay accurate as orders move through.',
     architecture:
-      'Next.js App Router with responsive data tables, real-time stock status indicators, and clean state updates.',
+      'Next.js 15 frontend paired with an ASP.NET Core (.NET 9) Clean Architecture backend and PostgreSQL.',
+    githubUrl: 'https://github.com/FahimInit/Enterprise-Inventory-and-Order-Management-SaaS',
     liveUrl: 'https://enterprise-inventory-and-order-mana.vercel.app/',
   },
   {
     id: 'multi-tenant-saas',
     title: 'MultiTenantSaaS',
     category: 'Full-Stack Next.js',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'RBAC', 'Vercel'],
+    tags: ['Next.js', 'TypeScript', 'ASP.NET Core', 'RBAC', 'Tailwind CSS'],
     shortDesc:
       'A team workspace app where every organization gets its own isolated space, with roles and permissions for its members.',
     problemSolved:
       'Gave multiple teams a single deployed app where each organization only sees its own data, members, and billing settings.',
     architecture:
-      'Next.js App Router with tenant-scoped routes, role-based access checks, and modular dashboard components.',
+      'Next.js App Router frontend connected to an ASP.NET Core Clean Architecture API with tenant-scoped role checks.',
     githubUrl: 'https://github.com/FahimInit/MultiTenantSaaS',
     liveUrl: 'https://multi-tenant-saa-s-seven.vercel.app/',
-  },
-  {
-    id: 'aura-digital',
-    title: 'Aura Digital Solutions',
-    category: 'Full-Stack Next.js',
-    tags: ['Next.js', 'Tailwind CSS', 'Stripe API', 'Vercel'],
-    shortDesc:
-      'Web agency and marketing automation platform built for small businesses that need fast landing pages and client dashboards.',
-    problemSolved:
-      'Helped small-to-medium businesses launch modern, high-converting sites with automated billing instead of stitching multiple tools together.',
-    architecture:
-      'Static marketing pages paired with dynamic Next.js dashboard routes, Stripe subscription checkout, and webhook fulfillment.',
-    liveUrl: 'https://ucabm.vercel.app/',
-    demoType: 'ecommerce',
-  },
-  {
-    id: 'aura-cafe',
-    title: 'The Aura Cafe',
-    category: 'React UI',
-    tags: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
-    shortDesc:
-      'Website for a modern cafe featuring an interactive menu, table reservation flow, and photo gallery.',
-    problemSolved:
-      'Replaced a static menu page with a mobile-friendly site where customers can browse dishes and book a table in under a minute.',
-    architecture:
-      'Statically generated Next.js pages for fast mobile load times with responsive Tailwind layouts.',
-    liveUrl: 'https://aura-cafe-chi.vercel.app/',
-  },
-  {
-    id: 'yt-playlist-downloader',
-    title: 'YouTube Playlist Downloader',
-    category: 'Node.js & Python',
-    tags: ['Python', 'Node.js', 'YouTube API v3', 'FFmpeg'],
-    shortDesc:
-      'Automated script that downloads entire YouTube playlists in parallel while keeping titles and track order intact.',
-    problemSolved:
-      'Saved hours of downloading educational videos one by one and handled connection drops and rate limits automatically.',
-    architecture:
-      'Node.js fetches playlist metadata from the YouTube API and hands tasks to a Python worker pool running FFmpeg.',
-    githubUrl: 'https://github.com/FahimInit',
-    codeSnippet: `from pytube import Playlist
-
-def download_playlist(url, path):
-    pl = Playlist(url)
-    for video in pl.videos:
-        video.streams.get_highest_resolution().download(path)`,
   },
 ];
 
