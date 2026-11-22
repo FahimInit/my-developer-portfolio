@@ -61,43 +61,103 @@ function renderDemo(type: DemoType) {
   }
 }
 
-function ProjectPreview({ project }: { project: ProjectSpec }) {
+function getScreenshotSources(liveUrl: string): string[] {
+  const encoded = encodeURIComponent(liveUrl);
+  return [
+    `https://s0.wp.com/mshots/v1/${encoded}?w=1200&h=750`,
+    `https://api.microlink.io/?url=${encoded}&screenshot=true&meta=false&embed=screenshot.url`,
+  ];
+}
+
+function getHostname(url?: string): string | null {
+  if (!url) return null;
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+}
+
+function ProjectPreview({
+  project,
+  featured = false,
+}: {
+  project: ProjectSpec;
+  featured?: boolean;
+}) {
   const style = PREVIEW[project.id] ?? FALLBACK_PREVIEW;
   const Icon = style.icon;
+  const sources = project.liveUrl ? getScreenshotSources(project.liveUrl) : [];
+  const [sourceIdx, setSourceIdx] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const activeSrc = sources[sourceIdx];
+  const hostname = getHostname(project.liveUrl);
 
   return (
     <div
       className={cn(
-        'relative h-44 overflow-hidden border-b border-line-subtle bg-gradient-to-br',
+        'relative overflow-hidden border-b border-line-subtle bg-gradient-to-br',
+        featured ? 'h-56 sm:h-72' : 'h-48 sm:h-56',
         style.gradient
       )}
     >
-      <div className="bg-tech-grid absolute inset-0 opacity-50" />
+      <div className="bg-tech-grid absolute inset-0 opacity-45" />
 
-      <div className="absolute inset-x-8 bottom-0 top-7 rounded-t-xl border border-white/10 bg-canvas/85 shadow-2xl transition-transform duration-500 ease-out group-hover:-translate-y-2">
-        <div className="flex items-center gap-1.5 border-b border-white/5 px-3 py-2">
-          <span className="h-2 w-2 rounded-full bg-white/15" />
-          <span className="h-2 w-2 rounded-full bg-white/15" />
-          <span className="h-2 w-2 rounded-full bg-white/15" />
-        </div>
-        <div className="flex items-center gap-3 p-4">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
-            <Icon className={cn('h-5 w-5', style.iconColor)} />
-          </span>
-          <div className="flex-1 space-y-2">
-            <div className="h-2 w-2/3 rounded bg-white/15" />
-            <div className="h-2 w-1/2 rounded bg-white/5" />
+      <div className="absolute inset-x-4 bottom-0 top-4 flex flex-col overflow-hidden rounded-t-xl border border-white/10 bg-canvas/90 shadow-2xl transition-transform duration-500 ease-out group-hover:-translate-y-1 sm:inset-x-6 sm:top-5">
+        {/* Mini browser chrome */}
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-elevated/90 px-3 py-2">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-rose-500/70" />
+            <span className="h-2 w-2 rounded-full bg-amber-400/70" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
           </div>
+          {hostname && (
+            <span className="truncate rounded-md bg-canvas/80 px-2.5 py-0.5 font-mono text-[10px] text-ink-muted">
+              {hostname}
+            </span>
+          )}
+          <span className="w-8" aria-hidden="true" />
         </div>
-        <div className="grid grid-cols-3 gap-2 px-4">
-          <div className="h-10 rounded-md bg-white/5" />
-          <div className="h-10 rounded-md bg-white/5" />
-          <div className="h-10 rounded-md bg-white/5" />
+
+        {/* Live website homepage preview */}
+        <div className="relative flex-1 overflow-hidden bg-canvas">
+          {activeSrc ? (
+            <>
+              <img
+                src={activeSrc}
+                alt={`${project.title} live homepage preview`}
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
+                onError={() => {
+                  setLoaded(false);
+                  setSourceIdx((prev) => prev + 1);
+                }}
+                className={cn(
+                  'h-full w-full object-cover object-top transition-all duration-500 group-hover:scale-[1.03]',
+                  loaded ? 'opacity-100' : 'opacity-0'
+                )}
+              />
+              {!loaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-ink-muted">
+                  <Icon className={cn('h-7 w-7 opacity-80', style.iconColor)} />
+                  <span className="font-mono text-[11px]">Loading live preview…</span>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-2.5 p-4 text-center">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5">
+                <Icon className={cn('h-5 w-5', style.iconColor)} />
+              </span>
+              <span className="font-mono text-xs text-ink-muted">{project.title}</span>
+            </div>
+          )}
         </div>
       </div>
 
       {project.liveUrl && (
-        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-canvas/80 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+        <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/25 bg-canvas/85 px-2.5 py-1 text-[11px] font-medium text-emerald-400 backdrop-blur-sm">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
           Live
         </span>
@@ -136,7 +196,7 @@ export function ProjectShowcase() {
                 isFeaturedFullRow && 'md:col-span-2'
               )}
             >
-              <ProjectPreview project={project} />
+              <ProjectPreview project={project} featured={isFeaturedFullRow} />
 
               <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-start justify-between gap-3">
