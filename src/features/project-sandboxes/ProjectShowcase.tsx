@@ -131,14 +131,22 @@ export function ProjectShowcase() {
       />
 
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {PROJECTS.map((project) => {
+        {PROJECTS.map((project, index) => {
           const isExpanded = expandedId === project.id;
+          const isFeaturedFullRow = PROJECTS.length % 2 === 1 && index === 0;
           const hasDeepDive = Boolean(
             project.problemSolved || project.architecture || project.codeSnippet
           );
 
           return (
-            <Card key={project.id} interactive className="group flex flex-col overflow-hidden">
+            <Card
+              key={project.id}
+              interactive
+              className={cn(
+                'group flex flex-col overflow-hidden',
+                isFeaturedFullRow && 'md:col-span-2'
+              )}
+            >
               <ProjectPreview project={project} />
 
               <div className="flex flex-1 flex-col p-6">

@@ -31,7 +31,7 @@ export function CodeCard() {
           </div>
         </div>
 
-        <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-7">
+        <pre className="overflow-x-auto px-5 pb-12 pt-5 font-mono text-[13px] leading-7">
           <code>
             <span className={k}>const</span> <span className="text-ink-primary">fahim</span>{' '}
             <span className={m}>=</span> <span className={m}>{'{'}</span>
@@ -60,7 +60,7 @@ export function CodeCard() {
           href={latestHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-xl border border-line-glass bg-elevated px-4 py-3 shadow-xl shadow-black/40 transition hover:border-line-hover sm:-left-8"
+          className="absolute -bottom-6 left-4 right-4 flex items-center gap-3 rounded-xl border border-line-glass bg-elevated px-4 py-3 shadow-xl shadow-black/40 transition hover:border-line-hover sm:-left-6 sm:right-auto"
         >
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
