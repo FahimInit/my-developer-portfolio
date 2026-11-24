@@ -16,6 +16,7 @@ export const PROJECTS: ProjectSpec[] = [
       'TypeScript React frontend backed by an Express & MongoDB REST API, packaged with Docker and automated CI checks.',
     githubUrl: 'https://github.com/FahimInit/learnsphere-lms',
     liveUrl: 'https://learnsphere-lms-three.vercel.app',
+    previewImage: '/previews/learnsphere-lms.png',
   },
   {
     id: 'inventory-order-manager',
@@ -30,6 +31,7 @@ export const PROJECTS: ProjectSpec[] = [
       'Next.js 15 frontend paired with an ASP.NET Core (.NET 9) Clean Architecture backend and PostgreSQL.',
     githubUrl: 'https://github.com/FahimInit/Enterprise-Inventory-and-Order-Management-SaaS',
     liveUrl: 'https://enterprise-inventory-and-order-mana.vercel.app/',
+    previewImage: '/previews/inventory-order-manager.jpg',
   },
   {
     id: 'multi-tenant-saas',
@@ -44,6 +46,7 @@ export const PROJECTS: ProjectSpec[] = [
       'Next.js App Router frontend connected to an ASP.NET Core Clean Architecture API with tenant-scoped role checks.',
     githubUrl: 'https://github.com/FahimInit/MultiTenantSaaS',
     liveUrl: 'https://multi-tenant-saa-s-seven.vercel.app/',
+    previewImage: '/previews/multi-tenant-saas.png',
   },
 ];
 

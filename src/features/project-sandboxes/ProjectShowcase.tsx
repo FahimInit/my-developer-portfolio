@@ -87,9 +87,12 @@ function ProjectPreview({
 }) {
   const style = PREVIEW[project.id] ?? FALLBACK_PREVIEW;
   const Icon = style.icon;
-  const sources = project.liveUrl ? getScreenshotSources(project.liveUrl) : [];
+  const sources = [
+    ...(project.previewImage ? [project.previewImage] : []),
+    ...(project.liveUrl ? getScreenshotSources(project.liveUrl) : []),
+  ];
   const [sourceIdx, setSourceIdx] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(Boolean(project.previewImage));
 
   const activeSrc = sources[sourceIdx];
   const hostname = getHostname(project.liveUrl);

@@ -18,6 +18,7 @@ export interface ProjectSpec {
   codeSnippet?: string;
   githubUrl?: string;
   liveUrl?: string;
+  previewImage?: string;
   demoType?: DemoType;
 }
 
