@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, FileText, Github } from 'lucide-react';
+import { ArrowRight, Github } from 'lucide-react';
 import { CodeCard } from '@/features/hero/CodeCard';
 import { ParticleField } from '@/features/hero/ParticleField';
 
@@ -100,15 +100,6 @@ export function Hero({ availability, githubUrl }: HeroProps) {
             >
               See my work
               <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-line-subtle bg-elevated/70 px-5 py-2.5 text-sm font-medium text-ink-primary transition hover:border-line-hover"
-            >
-              <FileText className="h-4 w-4 text-accent-primary" />
-              Resume
             </a>
             <a
               href={githubUrl}

@@ -1,8 +1,7 @@
 import {
+  ArrowUpRight,
   Code2,
   GraduationCap,
-  Mail,
-  MessageCircle,
   MessageSquare,
   Monitor,
   Rocket,
@@ -11,7 +10,7 @@ import {
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { CONTACT_INFO, EDUCATION, TECH_STACK } from '@/config/projects';
+import { EDUCATION, TECH_STACK } from '@/config/projects';
 import { Hero } from '@/features/hero/Hero';
 import { TechMarquee } from '@/features/hero/TechMarquee';
 import { ProjectShowcase } from '@/features/project-sandboxes/ProjectShowcase';
@@ -127,43 +126,26 @@ export default function HomePage() {
 
       <ScopeCalculator upworkUrl={env.NEXT_PUBLIC_UPWORK_PROFILE_URL} />
 
-      {/* Direct Contact Strip */}
-      <section id="contact" className="border-t border-line-subtle bg-elevated/30">
+      {/* Upwork-only CTA Strip */}
+      <section className="border-t border-line-subtle bg-elevated/30">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-12 sm:px-6 md:flex-row md:items-center lg:px-8">
           <div>
             <h3 className="text-lg font-semibold text-ink-primary">
-              Prefer reaching out directly?
+              Ready to start a project?
             </h3>
             <p className="mt-1 text-sm text-ink-muted">
-              Drop me an email or message on WhatsApp or LinkedIn anytime.
+              All communication, milestones, and contracts are handled securely on Upwork.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={`mailto:${CONTACT_INFO.email}`}
-              className="inline-flex items-center gap-2 rounded-xl border border-line-subtle bg-elevated px-4 py-2.5 text-xs font-medium text-ink-primary transition hover:border-line-hover"
-            >
-              <Mail className="h-4 w-4 text-accent-primary" />
-              {CONTACT_INFO.email}
-            </a>
-            <a
-              href={CONTACT_INFO.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-line-subtle bg-elevated px-4 py-2.5 text-xs font-medium text-ink-primary transition hover:border-line-hover"
-            >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
-              WhatsApp
-            </a>
-            <a
-              href={CONTACT_INFO.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-accent-primary px-4 py-2.5 text-xs font-semibold text-[#05080D] transition hover:brightness-110"
-            >
-              LinkedIn
-            </a>
-          </div>
+          <a
+            href={env.NEXT_PUBLIC_UPWORK_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-accent-primary px-5 py-2.5 text-sm font-semibold text-[#05080D] shadow-glow-sm transition hover:shadow-glow hover:brightness-110"
+          >
+            Hire me on Upwork
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </section>
     </>

@@ -79,10 +79,3 @@ export const EDUCATION: EducationItem[] = [
     duration: '2015 – 2020',
   },
 ];
-
-export const CONTACT_INFO = {
-  email: 'fahimmuhtashim19@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/md-fahim-muhtashim-427684285',
-  whatsapp: 'https://wa.me/+8801759939994',
-  phoneDisplay: '+880 1759-939994',
-};
